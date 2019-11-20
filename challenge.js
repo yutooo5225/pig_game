@@ -10,7 +10,7 @@ challenge
 
 var scores, roundScore, activePlayer, gamePlaying;
 
-var lastDice;
+var count6;
 
 init();
 
@@ -26,14 +26,13 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         diceDOM.src = 'dice-' + dice + '.png';
 
         //3. update the round score if the rolled number is not 1
-        if (dice !== 1) {
-            //add score
+        if (dice == 6) {
+            count6 ++;
+            countSix();
+            nextPlayer();
+        } else if (dice !== 1) {
             roundScore += dice;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
-        } else if (lastDice === 6 && dice === 6) {
-            scores[activePlayer] = 0;
-            document.querySelector('#score-' + activePlayer).textContent = '0';
-            nextPlayer();
         } else {
             nextPlayer();
             document.querySelector('.dice').style.display = 'none';
@@ -70,7 +69,8 @@ function nextPlayer() {
         //next player
         activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
         roundScore = 0;
-        
+        count6 = 0;
+    
         document.getElementById('current-0').textContent = 0;
         document.getElementById('current-1').textContent = 0;
         
@@ -86,6 +86,7 @@ function init(){
     activePlayer = 0;
     roundScore = 0;
     gamePlaying = true;
+    count6 = 0;
     
     //hide the  dice at the beginning
     document.querySelector('.dice').style.display = 'none';
@@ -103,5 +104,12 @@ function init(){
     document.querySelector('.player-0-panel').classList.add('active');
 }
 
-
+function countSix (){
+    if (count6 = 2) {
+        scores[activePlayer] = 0;
+        document.querySelector('#score-' + activePlayer).textContent = 0;
+    } else {
+        count6 = 0;
+    }
+}
 
