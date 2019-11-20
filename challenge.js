@@ -27,9 +27,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
         //3. update the round score if the rolled number is not 1
         if (dice == 6) {
-            count6 ++;
-            countSix();
-            nextPlayer();
+            countSix();            
         } else if (dice !== 1) {
             roundScore += dice;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
@@ -105,11 +103,12 @@ function init(){
 }
 
 function countSix (){
-    if (count6 = 2) {
+    if (count6 == 2) {
         scores[activePlayer] = 0;
         document.querySelector('#score-' + activePlayer).textContent = 0;
+        nextPlayer();
     } else {
-        count6 = 0;
+        count6 ++;
     }
 }
 
