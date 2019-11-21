@@ -8,13 +8,15 @@ challenge
 3. add another dice. if one of them is 1, loose current and next player
 */
 
-var scores, roundScore, activePlayer, gamePlaying, lastDice;
+var scores, roundScore, activePlayer, gamePlaying, lastDice, point;
 
 init();
+
 
 //click btn to roll the dice
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if (gamePlaying) {
+        inputScore();
         //1. get Random Number
         var dice = Math.floor(Math.random() * 6) + 1;
 
@@ -56,7 +58,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
         //check if player win the game
-        if (scores[activePlayer] >= 100) {
+        if (scores[activePlayer] >= point) {
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -109,5 +111,11 @@ function init(){
     document.querySelector('.player-0-panel').classList.add('active');
 }
 
-
+function inputScore(){
+    if (point !== 'entre target point'){
+    point = document.querySelector('.inputScore').value; 
+    } else {
+    point = 20;
+    }
+}
 
