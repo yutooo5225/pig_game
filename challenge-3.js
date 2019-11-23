@@ -16,7 +16,6 @@ init();
 //click btn to roll the dice
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if (gamePlaying) {
-        inputScore();
         //1. get Random Number
         dice_1 = Math.floor(Math.random() * 6) + 1;
         dice_2 = Math.floor(Math.random() * 6) + 1;
@@ -35,7 +34,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
             document.getElementById('dice_1').style.display = 'none';
             document.getElementById('dice_2').style.display = 'none';
         } else {
-            roundScore += (dice_1 + dice_2);
+            roundScore += dice_1 + dice_2;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         }      
     }   
@@ -50,7 +49,16 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
         //update the UI
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-
+        var input = document.querySelector('.inputScore').value;
+        // undefined, 0, null or"" are COERCED to false
+        // anything else is COERCED to true
+        
+        if (input) {
+            point = input;
+        } else {
+            point = 100;
+        }
+        
         //check if player win the game
         if (scores[activePlayer] >= point) {
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
@@ -107,11 +115,6 @@ function init(){
     document.querySelector('.player-0-panel').classList.add('active');
 }
 
-function inputScore(){
-    if (point !== 'entre target point'){
-    point = document.querySelector('.inputScore').value; 
-    } else {
-    point = 100;
-    }
-}
+
+
 
